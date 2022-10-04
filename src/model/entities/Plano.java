@@ -5,9 +5,13 @@ package model.entities;
  */
 
 public class Plano {
-    private int idPlano, quantidadeDados, quantidadeDadosBonus;
-    private String operadora, nome, beneficios;
-    private double valor;
+    private int idPlano;
+    private final String operadora;
+    private final String nome;
+    private final int quantidadeDados;
+    private final int quantidadeDadosBonus;
+    private final String beneficios;
+    private final double valor;
 
     public Plano(int idPlano, String operadora, String nome, int quantidadeDados, int quantidadeDadosBonus, String beneficios, double valor) {
         this.idPlano = idPlano;
@@ -26,6 +30,10 @@ public class Plano {
         this.quantidadeDadosBonus = quantidadeDadosBonus;
         this.beneficios = beneficios;
         this.valor = valor;
+    }
+
+    public int getIdPlano() {
+        return idPlano;
     }
 
     public int getQuantidadeDados() {

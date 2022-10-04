@@ -3,6 +3,7 @@ package view;
 import controller.PlanoController;
 import model.entities.Plano;
 
+import java.util.Collection;
 import java.util.Scanner;
 
 /**
@@ -92,6 +93,7 @@ public class Main {
         String operadora = sc.next();
 
         System.out.println(planoController.listarPlanosOperadora(operadora).toString());
+        System.out.println();
         menu();
     }
 
@@ -99,28 +101,74 @@ public class Main {
         System.out.print("\nID do plano a ser listado\n> ");
         int idPlano = sc.nextInt();
 
-        System.out.println(planoController.listarPlanoId(idPlano).toStringCompleto());
-        menu();
+        Collection<Plano> listaPlanos = planoController.listarTodosPlanos();
+        boolean valida = false;
+
+        for (Plano plano : listaPlanos) {
+            if (plano.getIdPlano() == idPlano) {
+                valida = true;
+                break;
+            }
+        }
+
+        if(valida) {
+            System.out.println(planoController.listarPlanoId(idPlano).toStringCompleto());
+            System.out.println();
+            menu();
+        } else {
+            System.out.print("\nID inválido! Tente novamente:\n");
+            listarPlanoId();
+        }
     }
 
     private static void editarPlano() {
         System.out.print("\nID do plano a ser editado\n> ");
         int idPlano = sc.nextInt();
 
-        Plano novoPlano = coletaDados();
+        Collection<Plano> listaPlanos = planoController.listarTodosPlanos();
+        boolean valida = false;
 
-        planoController.editarPlano(idPlano, novoPlano);
+        for (Plano plano : listaPlanos) {
+            if (plano.getIdPlano() == idPlano) {
+                valida = true;
+                break;
+            }
+        }
 
-        System.out.print("\nPlano editado com sucesso!\n\n");
-        menu();
+        if (valida) {
+            Plano novoPlano = coletaDados();
+
+            planoController.editarPlano(idPlano, novoPlano);
+
+            System.out.print("\nPlano editado com sucesso!\n\n");
+            menu();
+        } else {
+            System.out.print("\nID inválido! Tente novamente:\n");
+            editarPlano();
+        }
     }
 
     private static void excluirPlano() {
         System.out.print("\nID do plano a ser excluído\n> ");
         int idPlano = sc.nextInt();
 
-        planoController.excluirPlano(idPlano);
-        System.out.print("\nPlano excluído com sucesso!\n\n");
-        menu();
+        Collection<Plano> listaPlanos = planoController.listarTodosPlanos();
+        boolean valida = false;
+
+        for (Plano plano : listaPlanos) {
+            if (plano.getIdPlano() == idPlano) {
+                valida = true;
+                break;
+            }
+        }
+
+        if (valida) {
+            planoController.excluirPlano(idPlano);
+            System.out.print("\nPlano excluído com sucesso!\n\n");
+            menu();
+        } else {
+            System.out.print("\nID inválido! Tente novamente:\n");
+            excluirPlano();
+        }
     }
 }

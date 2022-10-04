@@ -80,7 +80,6 @@ public class PlanoDao {
     }
 
     public Plano listarPlanoId(int idPlano) throws ErroExecucao, SQLException {
-        Plano plano = null;
         String sql = "SELECT * FROM plano WHERE idPlano = ?;";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -93,7 +92,7 @@ public class PlanoDao {
                     return extrairObjeto(resultSet);
                 }
 
-                return plano;
+                return null;
             } catch (Exception e) {
                 throw new ErroExecucao("\nErro na execução do comando SQL\n\n");
             }

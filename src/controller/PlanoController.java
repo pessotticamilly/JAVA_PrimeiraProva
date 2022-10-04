@@ -6,7 +6,7 @@ import model.service.PlanoService;
 import java.util.Collection;
 
 /**
- * Esta é a classe PlanoController, responsável pelas requisições e fazer a comunicação entre a classe PlanoService e a classe Main (Que é a nossa View).
+ * Esta é a classe PlanoController, responsável pelas requisições e fazer a comunicação entre a classe PlanoService e a classe Main (que é a nossa View).
  */
 
 public class PlanoController {

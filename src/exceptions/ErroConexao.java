@@ -6,6 +6,6 @@ package exceptions;
 
 public class ErroConexao extends Exception {
     public ErroConexao(String mensagem) {
-        super(mensagem);
+        System.out.println(mensagem);
     }
 }
