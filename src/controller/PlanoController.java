@@ -28,8 +28,8 @@ public class PlanoController {
         return planoService.listarPlanoId(idPlano);
     }
 
-    public void editarPlano() {
-        planoService.editarPlano();
+    public void editarPlano(int idPlano, Plano novoPlano) {
+        planoService.editarPlano(idPlano, novoPlano);
     }
 
     public void excluirPlano(int idPlano) {

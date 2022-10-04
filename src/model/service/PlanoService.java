@@ -21,46 +21,46 @@ public class PlanoService {
 
     public Collection<Plano> listarTodosPlanos() {
         try {
-        PlanoDao planoDao = new PlanoDao();
-        return planoDao.listarTodosPlanos();
-    } catch (Exception e) {
-        throw new RuntimeException(e);
-    }
+            PlanoDao planoDao = new PlanoDao();
+            return planoDao.listarTodosPlanos();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Collection<Plano> listarPlanosOperadora(String operadora) {
         try {
-        PlanoDao planoDao = new PlanoDao();
-        return planoDao.listarPlanosOperadora(operadora);
-    } catch (Exception e) {
-        throw new RuntimeException(e);
+            PlanoDao planoDao = new PlanoDao();
+            return planoDao.listarPlanosOperadora(operadora);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
     public Plano listarPlanoId(int idPlano) {
         try {
-        PlanoDao planoDao = new PlanoDao();
-        return planoDao.listarPlanoId(idPlano);
+            PlanoDao planoDao = new PlanoDao();
+            return planoDao.listarPlanoId(idPlano);
         } catch (Exception e) {
-        throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 
-    public void editarPlano() {
+    public void editarPlano(int idPlano, Plano novoPlano) {
         try {
-        PlanoDao planoDao = new PlanoDao();
-        planoDao.editarPlano();
+            PlanoDao planoDao = new PlanoDao();
+            planoDao.editarPlano(idPlano, novoPlano);
         } catch (Exception e) {
-        throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 
     public void excluirPlano(int idPlano) {
         try {
-        PlanoDao planoDao = new PlanoDao();
-        planoDao.excluirPlano(idPlano);
+            PlanoDao planoDao = new PlanoDao();
+            planoDao.excluirPlano(idPlano);
         } catch (Exception e) {
-        throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 }

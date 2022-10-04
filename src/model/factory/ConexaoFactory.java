@@ -17,7 +17,7 @@ public class ConexaoFactory {
 
         try {
             return DriverManager.getConnection(url, username, password);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new ErroConexao("Erro na conexão");
         }
     }

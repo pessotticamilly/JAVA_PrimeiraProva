@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 /**
  * Esta é a classe executável, como o próprio nome diz, ela é responsável por executar o programa.
+ *
  * @author Camilly Pessotti
  * @version 1.0
  */
@@ -76,7 +77,7 @@ public class Main {
         Plano plano = coletaDados();
         planoController.cadastrarPlano(plano);
 
-        System.out.print("\nPlano cadastrado com sucesso!\n");
+        System.out.print("\nPlano cadastrado com sucesso!\n\n");
         menu();
     }
 
@@ -87,16 +88,15 @@ public class Main {
     }
 
     private static void listarPlanosOperadora() {
-        System.out.print("Operadora dos planos a serem listados\n> ");
+        System.out.print("\nOperadora dos planos a serem listados\n> ");
         String operadora = sc.next();
 
         System.out.println(planoController.listarPlanosOperadora(operadora).toString());
         menu();
-
     }
 
     private static void listarPlanoId() {
-        System.out.print("ID do plano a ser listado\n> ");
+        System.out.print("\nID do plano a ser listado\n> ");
         int idPlano = sc.nextInt();
 
         System.out.println(planoController.listarPlanoId(idPlano).toStringCompleto());
@@ -104,7 +104,15 @@ public class Main {
     }
 
     private static void editarPlano() {
-        planoController.editarPlano();
+        System.out.print("\nID do plano a ser editado\n> ");
+        int idPlano = sc.nextInt();
+
+        Plano novoPlano = coletaDados();
+
+        planoController.editarPlano(idPlano, novoPlano);
+
+        System.out.print("\nPlano editado com sucesso!\n\n");
+        menu();
     }
 
     private static void excluirPlano() {

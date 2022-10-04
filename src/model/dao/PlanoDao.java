@@ -100,11 +100,27 @@ public class PlanoDao {
         }
     }
 
-    public void editarPlano() {
+    public void editarPlano(int idPlano, Plano novoPlano) throws ErroExecucao, SQLException {
+        String sql = "UPDATE plano SET operadora = ?, nome = ?, quantidadeDados = ?, quantidadeDadosBonus = ?, beneficios = ?, valor = ? WHERE idPlano = ?";
 
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, novoPlano.getOperadora());
+            preparedStatement.setString(2, novoPlano.getNome());
+            preparedStatement.setInt(3, novoPlano.getQuantidadeDados());
+            preparedStatement.setInt(4, novoPlano.getQuantidadeDadosBonus());
+            preparedStatement.setString(5, novoPlano.getBeneficios());
+            preparedStatement.setDouble(6, novoPlano.getValor());
+            preparedStatement.setInt(7, idPlano);
+
+            try {
+                preparedStatement.execute();
+            } catch (Exception e) {
+                throw new ErroExecucao("\nErro na execução do comando SQL\n\n");
+            }
+        }
     }
 
-    public void excluirPlano(int idPlano) throws SQLException, ErroExecucao {
+    public void excluirPlano(int idPlano) throws ErroExecucao, SQLException {
         String sql = "DELETE FROM plano WHERE idPlano = ?;";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
