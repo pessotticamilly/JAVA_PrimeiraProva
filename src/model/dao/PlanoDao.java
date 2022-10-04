@@ -1,11 +1,15 @@
 package model.dao;
 
+import exceptions.ErroConexao;
+import exceptions.ErroExecucao;
+import exceptions.ErroTratamento;
 import model.entities.Plano;
 import model.factory.ConexaoFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -18,11 +22,11 @@ public class PlanoDao {
     Collection<Plano> listaTodosPlanos = new ArrayList<>();
     Collection<Plano> listaPlanosOperadora = new ArrayList<>();
 
-    public PlanoDao() {
+    public PlanoDao() throws ErroConexao {
         this.connection = new ConexaoFactory().conexaoBD();
     }
 
-    public void cadastrarPlano(Plano plano) {
+    public void cadastrarPlano(Plano plano) throws ErroExecucao, SQLException {
         String sql = "INSERT INTO plano (operadora, nome, quantidadeDados, quantidadeDadosBonus, beneficios, valor) VALUES (?, ?, ?, ?, ?, ?);";
         String operadora = plano.getOperadora();
 
@@ -37,14 +41,12 @@ public class PlanoDao {
             try {
                 preparedStatement.execute();
             } catch (Exception e) {
-                throw new RuntimeException("\nErro na execução do comando SQL\n\n");
+                throw new ErroExecucao("\nErro na execução do comando SQL\n\n");
             }
-        } catch (Exception e) {
-            throw new RuntimeException("\nErro na preparação do comando SQL\n\n");
         }
     }
 
-    public Collection<Plano> listarTodosPlanos() {
+    public Collection<Plano> listarTodosPlanos() throws ErroExecucao, SQLException {
         String sql = "SELECT * FROM plano ORDER BY operadora;";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -55,14 +57,12 @@ public class PlanoDao {
 
                 return listaTodosPlanos;
             } catch (Exception e) {
-                throw new RuntimeException("\nErro na execução do comando SQL\n\n");
+                throw new ErroExecucao("\nErro na execução do comando SQL\n\n");
             }
-        } catch (Exception e) {
-            throw new RuntimeException("\nErro na preparação do comando SQL\n\n");
         }
     }
 
-    public Collection<Plano> listarPlanosOperadora(String operadora) {
+    public Collection<Plano> listarPlanosOperadora(String operadora) throws ErroExecucao, SQLException {
         String sql = "SELECT * FROM plano WHERE operadora = ?;";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -74,14 +74,12 @@ public class PlanoDao {
 
                 return listaPlanosOperadora;
             } catch (Exception e) {
-                throw new RuntimeException("\nErro na execução do comando SQL\n\n");
+                throw new ErroExecucao("\nErro na execução do comando SQL\n\n");
             }
-        } catch (Exception e) {
-            throw new RuntimeException("\nErro na preparação do comando SQL\n\n");
         }
     }
 
-    public Plano listarPlanoId(int idPlano) {
+    public Plano listarPlanoId(int idPlano) throws ErroExecucao, SQLException {
         Plano plano = null;
         String sql = "SELECT * FROM plano WHERE idPlano = ?;";
 
@@ -97,10 +95,8 @@ public class PlanoDao {
 
                 return plano;
             } catch (Exception e) {
-                throw new RuntimeException("\nErro na execução do comando SQL\n\n");
+                throw new ErroExecucao("\nErro na execução do comando SQL\n\n");
             }
-        } catch (Exception e) {
-            throw new RuntimeException("\nErro na preparação do comando SQL\n\n");
         }
     }
 
@@ -108,7 +104,7 @@ public class PlanoDao {
 
     }
 
-    public void excluirPlano(int idPlano) {
+    public void excluirPlano(int idPlano) throws SQLException, ErroExecucao {
         String sql = "DELETE FROM plano WHERE idPlano = ?;";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -117,14 +113,12 @@ public class PlanoDao {
             try {
                 preparedStatement.execute();
             } catch (Exception e) {
-                throw new RuntimeException("\nErro na execução do comando SQL\n\n");
+                throw new ErroExecucao("\nErro na execução do comando SQL\n\n");
             }
-        } catch (Exception e) {
-            throw new RuntimeException("\nErro na preparação do comando SQL\n\n");
         }
     }
 
-    private Plano extrairObjeto(ResultSet resultSet) {
+    private Plano extrairObjeto(ResultSet resultSet) throws ErroTratamento {
         try {
             return new Plano(
                     resultSet.getInt("idPlano"),
@@ -136,7 +130,7 @@ public class PlanoDao {
                     resultSet.getDouble("valor")
             );
         } catch (Exception e) {
-            throw new RuntimeException("\nErro ao extrair objeto\n\n");
+            throw new ErroTratamento("\nErro ao extrair objeto\n\n");
         }
     }
 }

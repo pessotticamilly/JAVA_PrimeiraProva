@@ -10,29 +10,57 @@ import java.util.Collection;
  */
 
 public class PlanoService {
-    static PlanoDao planoDao = new PlanoDao();
-
     public void cadastrarPlano(Plano plano) {
-        planoDao.cadastrarPlano(plano);
+        try {
+            PlanoDao planoDao = new PlanoDao();
+            planoDao.cadastrarPlano(plano);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public Collection<Plano> listarTodosPlanos() {
+        try {
+        PlanoDao planoDao = new PlanoDao();
         return planoDao.listarTodosPlanos();
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
     }
 
     public Collection<Plano> listarPlanosOperadora(String operadora) {
+        try {
+        PlanoDao planoDao = new PlanoDao();
         return planoDao.listarPlanosOperadora(operadora);
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+        }
     }
 
     public Plano listarPlanoId(int idPlano) {
+        try {
+        PlanoDao planoDao = new PlanoDao();
         return planoDao.listarPlanoId(idPlano);
+        } catch (Exception e) {
+        throw new RuntimeException(e);
+        }
     }
 
     public void editarPlano() {
+        try {
+        PlanoDao planoDao = new PlanoDao();
         planoDao.editarPlano();
+        } catch (Exception e) {
+        throw new RuntimeException(e);
+        }
     }
 
     public void excluirPlano(int idPlano) {
+        try {
+        PlanoDao planoDao = new PlanoDao();
         planoDao.excluirPlano(idPlano);
+        } catch (Exception e) {
+        throw new RuntimeException(e);
+        }
     }
 }

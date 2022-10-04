@@ -5,7 +5,7 @@ package exceptions;
  */
 
 public class ErroConexao extends Exception {
-
-    public ErroConexao(String erro_na_conexão) {
+    public ErroConexao(String mensagem) {
+        super(mensagem);
     }
 }

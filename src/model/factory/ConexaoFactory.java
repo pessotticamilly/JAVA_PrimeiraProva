@@ -10,7 +10,7 @@ import java.sql.DriverManager;
  */
 
 public class ConexaoFactory {
-    public Connection conexaoBD() {
+    public Connection conexaoBD() throws ErroConexao {
         String password = "root";
         String url = "jdbc:mysql://localhost:3306/java_primeiraprova";
         String username = "root";
